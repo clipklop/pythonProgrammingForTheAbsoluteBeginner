@@ -19,42 +19,57 @@ while menu_choice != "0":
         Please choose wisely.
         \n--
         Take your choice:
-            Exit            - 0
-            Add points      - 1
-            Take points     - 2
-            Total points    - 3
+            Exit          --- 0
+            Add points    --- 1
+            Take points   --- 2
+            Total points  --- 3
     """)
     menu_choice = input("\nYour choice please: ")
     if menu_choice == "0":
         print("Good bye, warrior.")
         break
     elif menu_choice == "1":
-        print("""
-            You have four attributes to upgrade:
-                health
-                strength
-                agility
-                intelligence
-        """)
-        attr_choice = input("What attribute you'd like to change? ").lower()
-        if attr_choice in attributes:
-            print("You have {} to spend on {}".format(total_points, attr_choice))
-            points = int(input("How many points you would like to add? "))
-            while points > total_points:
-                print("Sorry, you don't have that much. You have only {} points".format(total_points))
+        if total_points != 0:
+            print("""
+                You have four attributes to upgrade:
+                    health
+                    strength
+                    agility
+                    intelligence
+            """)
+            attr_choice = input("What attribute you'd like to change? ").lower()
+            if attr_choice in attributes:
+                print("You have {} to spend on {}".format(total_points, attr_choice))
                 points = int(input("How many points you would like to add? "))
-            attributes[attr_choice] = points
-            total_points -= points
-            print("Awesome! You have added {} points to {}".format(points, attr_choice))
-            print("Here is your overal stats: \n{}".format(attributes))
-            input("Press Enter to continue...")
+                while points > total_points:
+                    print("Sorry, you don't have that much. You have only {} points".format(total_points))
+                    points = int(input("How many points you would like to add? "))
+                attributes[attr_choice] = points
+                total_points -= points
+                print("Awesome! You have added {} points to {}".format(points, attr_choice))
+                print("Here is your overal stats: \n{}".format(attributes))
+                input("Press Enter to continue...")
+            else:
+                print("Sorry, no such attribute.")
         else:
-            print("Sorry, no such attribute.")
+            print("Sorry, no free points left")
+            input("Press Enter to continue...")
+    elif menu_choice == "2":
+        print("health: {}".format(attributes["health"]))
+        print("strength: {}".format(attributes["strength"]))
+        print("agility: {}".format(attributes["agility"]))
+        print("intelligence: {}".format(attributes["intelligence"]))
+        attr_choice = input("From which attribute you would like to take points? ").lower()
+        if attr_choice in attributes:
+            print("You can take {} points".format(attr_choice))
+            points = int(input("How many points you would like to take? "))
+            if attributes[attr_choice] != 0 and points < 30:
+                attributes[attr_choice] = points
+                total_points += attributes[attr_choice]
+                print("Ok, pal. You have took back {} points from {}".format(points, attr_choice))
+                print("Here is your overal stats: \n{}".format(attributes))
+                input("Press Enter to continue...")
 
-### Not mine. Needs to be rewrited
-#     elif user_input == 2:
-#         attrib = input('Which attribute would you like to take points from? ')
-#         attrib = attrib.lower()
 #         if attrib in attributes:
 #             points = int(input('\nHow many points would you like to take? '))
 #             if points > attributes[attrib]:
