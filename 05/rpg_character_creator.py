@@ -1,3 +1,9 @@
+# Write a Character Creator program for a role-playing game. The player
+# should be given a pool of 30 points to spend on four attributes:
+# Strength, Health, Wisdom, and Dexterity. The player should be able
+# to spend points from the pool on any attribute and should also be able
+# to take points from an attribute and put them back into the pool.
+
 ###
 # Chapter 05
 # Task 02: User get 30 points and can spend/take it back/reassign /
@@ -15,14 +21,14 @@ menu_choice = None
 
 while menu_choice != "0":
     print("""
-        You have 30 points to spend on characters attribute.
-        Please choose wisely.
-        \n--
-        Take your choice:
-            Exit          --- 0
-            Add points    --- 1
-            Take points   --- 2
-            Total points  --- 3
+You have 30 points to spend on characters attribute.
+Please choose wisely.
+--
+Take your choice:
+    Exit          --- 0
+    Add points    --- 1
+    Take points   --- 2
+    Total points  --- 3
     """)
     menu_choice = input("\nYour choice please: ")
     if menu_choice == "0":
@@ -44,7 +50,7 @@ while menu_choice != "0":
                 while points > total_points:
                     print("Sorry, you don't have that much. You have only {} points".format(total_points))
                     points = int(input("How many points you would like to add? "))
-                attributes[attr_choice] = points
+                attributes[attr_choice] += points
                 total_points -= points
                 print("Awesome! You have added {} points to {}".format(points, attr_choice))
                 print("Here is your overal stats: \n{}".format(attributes))
@@ -61,44 +67,22 @@ while menu_choice != "0":
         print("intelligence: {}".format(attributes["intelligence"]))
         attr_choice = input("From which attribute you would like to take points? ").lower()
         if attr_choice in attributes:
-            print("You can take {} points".format(attr_choice))
-            points = int(input("How many points you would like to take? "))
-            if attributes[attr_choice] != 0 and points < 30:
-                attributes[attr_choice] = points
-                total_points += attributes[attr_choice]
+            print("You can take {} points from {}".format(attributes[attr_choice], attr_choice))
+            points = int(input("How many points you would like to take back? "))
+            if points <= attributes[attr_choice]:
+                total_points += points
+                attributes[attr_choice] -= points
                 print("Ok, pal. You have took back {} points from {}".format(points, attr_choice))
                 print("Here is your overal stats: \n{}".format(attributes))
                 input("Press Enter to continue...")
-
-#         if attrib in attributes:
-#             points = int(input('\nHow many points would you like to take? '))
-#             if points > attributes[attrib]:
-#                 total += attributes[attrib]
-#                 attributes[attrib] = 0
-#                 print('\n You had less than', points,'in',attrib.title(),'so all the'\
-#                       ' points in', attrib.title(),'have been taken and added back to your'\
-#                       ' total to spend')
-#             else:
-#                 total += points
-#                 attributes[attrib] -= points
-#         else:
-#             print('\nSorry that isn\'t a valid selection')
-#     elif user_input == 3:
-#         print('Attribute Totals:\n')
-#         print('ATTRIBUTE\tPOINTS')
-#         for attribute, points in attributes.items():
-#             print(attribute, '\t', points)
-#         print('Total\t', total)
-#     else:
-#         print('\nSorry that isn\'t a valid option')
-
-
-# # let's user exit program
-# input('Press enter to exit')
-
-
-# Write a Character Creator program for a role-playing game. The player
-# should be given a pool of 30 points to spend on four attributes:
-# Strength, Health, Wisdom, and Dexterity. The player should be able
-# to spend points from the pool on any attribute and should also be able
-# to take points from an attribute and put them back into the pool.
+            else:
+                print("Sorry, the attribute {} doesn't have that much.".format(attr_choice))
+                input("Press Enter to continue...")
+        else:
+            print("Sorry, no such attribute.")
+    elif menu_choice == "3":
+        print("The overall stats of total points:")
+        for a, p in attributes.items():
+            print("{}: {}".format(a, p))
+        print("Points left: ", total_points)
+        input("Press Enter to continue...")
