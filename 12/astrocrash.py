@@ -1,6 +1,17 @@
 # The Astrocrash game.
 # Based on the classic one Asteroids.
 
+
+"""
+### TO-DO:
+    Improve the Astrocrash game by creating a new kind of deadly
+    space debris. Give this new type of debris some quality that
+    differentiates it from the asteroids. For example, maybe the
+    debris requires two missile strikes to be destroyed.
+###
+"""
+
+
 import random, math
 
 # Refactored modules from Livewires package.
